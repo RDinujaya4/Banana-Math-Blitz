@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Leaderboard</title>
+        <script src="https://cdn.tailwindcss.com"></script> 
+        <link rel="stylesheet" href="../css/leaderboard.css"> 
+    </head>
+    <body>
+        <div class="leaderboard-container">
+            <div class="leaderboard-card">
+                <h2 class="leaderboard-title">🏆 Leaderboard</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+
+                    </tbody>
+                </table>
+            </div>
+            <button class="back-btn" onclick="window.location.href='menu.html'"> Back</button>
+        </div>
+        <script src="../js/leaderboard.js"></script>
+    </body>
+</html>

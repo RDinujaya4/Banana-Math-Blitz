@@ -1,0 +1,63 @@
+.leaderboard-container {
+    background-image: url('../assets/images/Background_6.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.leaderboard-card {
+    background: rgba(255, 255, 255, 0.237);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    width: 450px;
+    box-shadow: 0 4px rgba(0, 0, 0, 0.3);
+    margin-left: 45px;
+    margin-bottom: 150px;
+}
+
+.leaderboard-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    font-size: 18px;
+}
+
+th {
+    background-color: #ffcc00;
+    color: black;
+}
+
+.back-btn {
+    position: absolute;
+    bottom: 138px;
+    left: 120px;
+    background-color: #ff583300;
+    color: rgb(22, 22, 22);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 19px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.back-btn:hover {
+    background-color: #82643f;
+}
