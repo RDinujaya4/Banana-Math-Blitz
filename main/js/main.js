@@ -3,14 +3,18 @@ let timer;
 let timeLeft = 30;
 let score = 0;
 let rockIndex = 0;
+
 const timerDisplay = document.getElementById("timer");
 const scoreDisplay = document.getElementById("score");
 const monkey = document.getElementById("monkey");
 const splash = document.getElementById("splash");
 const rockContainer = document.getElementById("rockContainer");
+const fish1 = document.getElementById("fish1");
+const fish2 = document.getElementById("fish2");
 
 const rockPositions = [280, 530, 780, 1030];
-rockPositions.forEach((pos, index) => {
+
+rockPositions.forEach((pos) => {
     const rock = document.createElement("img");
     rock.src = "../assets/images/rock.png";
     rock.classList.add("rock");
@@ -44,7 +48,7 @@ function startTimer() {
 
 function fetchPuzzle() {
     const apiUrl = "https://marcconrad.com/uob/banana/api.php";
-    
+
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -65,7 +69,7 @@ function fetchPuzzle() {
         });
 }
 
-document.getElementById("checkButton").addEventListener("click", function() {
+document.getElementById("checkButton").addEventListener("click", function () {
     const userAnswer = parseInt(document.getElementById("answerInput").value, 10);
     const feedbackEl = document.getElementById("feedback");
 
@@ -91,7 +95,7 @@ document.getElementById("checkButton").addEventListener("click", function() {
     }
 });
 
-document.getElementById("nextButton").addEventListener("click", function() {
+document.getElementById("nextButton").addEventListener("click", function () {
     fetchPuzzle();
 });
 
@@ -118,4 +122,13 @@ function resetGame() {
     splash.style.display = "none";
 }
 
-window.onload = fetchPuzzle;
+// Fish Animation
+function animateFish() {
+    fish1.style.animation = "swimLeftToRight 9s linear infinite";
+    fish2.style.animation = "swimRightToLeft 9s linear infinite";
+}
+
+window.onload = () => {
+    fetchPuzzle();
+    animateFish();
+};
