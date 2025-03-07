@@ -7,12 +7,11 @@ let rockIndex = 0;
 const timerDisplay = document.getElementById("timer");
 const scoreDisplay = document.getElementById("score");
 const monkey = document.getElementById("monkey");
-const splash = document.getElementById("splash");
 const rockContainer = document.getElementById("rockContainer");
 const fish1 = document.getElementById("fish1");
 const fish2 = document.getElementById("fish2");
 
-const rockPositions = [280, 530, 780, 1030];
+const rockPositions = [260, 510, 760, 1010];
 
 rockPositions.forEach((pos) => {
     const rock = document.createElement("img");
@@ -86,24 +85,30 @@ document.getElementById("checkButton").addEventListener("click", function () {
         feedbackEl.style.color = "green";
         updateScore(10);
 
+        
         if (rockIndex === rockPositions.length) {
             // Monkey jumps to treasure after answering the last question
             setTimeout(() => {
-                monkey.style.transform = `translateX(1280px) translateY(0px)`; // Jump to treasure
+                monkey.style.transition = "transform 0.8s ease-out";
+                monkey.style.transform = `translateX(${rockPositions[rockIndex - 1] + 170}px) translateY(-120px)`; // Jump up slightly
 
                 setTimeout(() => {
-                    let rewardPoints = Math.floor(Math.random() * 91) + 10; // Random points between 10-100
-                    updateScore(rewardPoints);
-                    alert(`You found the treasure! 🎉 You earned ${rewardPoints} points!`);
-                    setTimeout(fetchPuzzle, 1000);
-                    resetGame();
-                }, 1000);
-            }, 500);
+                    monkey.style.transform = `translateX(1280px) translateY(0px)`; // Land on the treasure position
+                
+                    setTimeout(() => {
+                        let rewardPoints = Math.floor(Math.random() * 91) + 10; // Random points between 10-100
+                        updateScore(rewardPoints);
+                        alert(`You found the treasure! 🎉 You earned ${rewardPoints} points!`);
+                        setTimeout(fetchPuzzle, 1000);
+                        resetGame();
+                    }, 1000);
+                }, 300); // Mid-air delay
+            }, 300);
         } else {
             // Continue normal jumping process
-            setTimeout(fetchPuzzle, 2000);
+            setTimeout(fetchPuzzle, 1000);
             moveMonkey();
-        }
+            }      
     } else {
         feedbackEl.textContent = "Incorrect. Try again!";
         feedbackEl.style.color = "red";
@@ -119,20 +124,17 @@ document.getElementById("nextButton").addEventListener("click", function () {
 
 function moveMonkey() {
     if (rockIndex < rockPositions.length) {
-        monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(0px)`;
+        monkey.style.transition = "transform 0.7s ease-out"; // Smooth jumping effect
+        monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(-100px)`; // Move up slightly
 
         setTimeout(() => {
-            rockIndex++;
+            monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(0px)`; // Land on the rock
 
-        }, 700); // Delay to sync with animation
+            setTimeout(() => {
+                rockIndex++;
+            }, 300); // Small delay after landing
+        }, 400); // Time spent in the air
     }
-}
-
-function fallIntoRiver() {
-    splash.style.left = `${rockPositions[rockIndex]}px`;
-    splash.style.bottom = "120px";
-    splash.style.display = "block";
-    setTimeout(resetGame, 2000);
 }
 
 function resetGame() {
@@ -151,3 +153,4 @@ window.onload = () => {
     fetchPuzzle();
     animateFish();
 };
+
