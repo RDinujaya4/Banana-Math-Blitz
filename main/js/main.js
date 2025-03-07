@@ -70,6 +70,7 @@ function fetchPuzzle() {
         });
 }
 
+// Modify the check button event to handle the final move
 document.getElementById("checkButton").addEventListener("click", function () {
     const userAnswer = parseInt(document.getElementById("answerInput").value, 10);
     const feedbackEl = document.getElementById("feedback");
@@ -84,8 +85,25 @@ document.getElementById("checkButton").addEventListener("click", function () {
         feedbackEl.textContent = "Correct! 🎉";
         feedbackEl.style.color = "green";
         updateScore(10);
-        setTimeout(fetchPuzzle, 2000);
-        moveMonkey();
+
+        if (rockIndex === rockPositions.length) {
+            // Monkey jumps to treasure after answering the last question
+            setTimeout(() => {
+                monkey.style.transform = `translateX(1280px) translateY(0px)`; // Jump to treasure
+
+                setTimeout(() => {
+                    let rewardPoints = Math.floor(Math.random() * 91) + 10; // Random points between 10-100
+                    updateScore(rewardPoints);
+                    alert(`You found the treasure! 🎉 You earned ${rewardPoints} points!`);
+                    setTimeout(fetchPuzzle, 1000);
+                    resetGame();
+                }, 1000);
+            }, 500);
+        } else {
+            // Continue normal jumping process
+            setTimeout(fetchPuzzle, 2000);
+            moveMonkey();
+        }
     } else {
         feedbackEl.textContent = "Incorrect. Try again!";
         feedbackEl.style.color = "red";
@@ -102,10 +120,11 @@ document.getElementById("nextButton").addEventListener("click", function () {
 function moveMonkey() {
     if (rockIndex < rockPositions.length) {
         monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(0px)`;
-        rockIndex++;
-    } else {
-        alert("You reached the treasure! 🎉");
-        resetGame();
+
+        setTimeout(() => {
+            rockIndex++;
+
+        }, 700); // Delay to sync with animation
     }
 }
 
