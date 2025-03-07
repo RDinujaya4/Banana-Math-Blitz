@@ -15,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     background: rgba(128, 217, 174, 0.19);
-    border-bottom: 1px solid #8B5A2B;
+    /*border-bottom: 1px solid #8B5A2B;*/
 }
 
 #bottom-section {
@@ -31,7 +31,7 @@ body {
     position: absolute;
     top: 20px;
     right: 80px;
-    background: rgba(40, 39, 39, 0.248);
+    background: rgba(230, 227, 227, 0.793);
     padding: 10px 20px;
     border-radius: 8px;
 }
@@ -113,9 +113,9 @@ body {
 
 #monkey {
     position: absolute;
-    bottom: 160px;
-    left: 55px;
-    width: 100px;
+    bottom: 125px;
+    left: 40px;
+    width: 150px;
     transition: transform 0.5s ease-in-out;
 }
 
