@@ -23,7 +23,7 @@ rockPositions.forEach((pos) => {
 });
 
 function updateScore(points) {
-    score += points;
+    score = Math.max(0, score + points); // Ensure score never goes below 0
     scoreDisplay.textContent = `Score: ${score}`;
 }
 
@@ -42,6 +42,7 @@ function startTimer() {
             timerDisplay.textContent = "Time's up!";
             updateScore(-5);
             setTimeout(fetchPuzzle, 2000);
+            resetGame();
         }
     }, 1000);
 }
@@ -58,7 +59,7 @@ function fetchPuzzle() {
                 document.getElementById("feedback").textContent = "";
                 document.getElementById("answerInput").value = "";
                 document.getElementById("nextButton").style.display = "none";
-                startTimer();
+                startTimer(); // Restart timer for new question
             } else {
                 document.getElementById("feedback").textContent = "Invalid puzzle data received.";
             }
@@ -83,14 +84,13 @@ document.getElementById("checkButton").addEventListener("click", function () {
         feedbackEl.textContent = "Correct! 🎉";
         feedbackEl.style.color = "green";
         updateScore(10);
-        
         setTimeout(fetchPuzzle, 2000);
         moveMonkey();
     } else {
         feedbackEl.textContent = "Incorrect. Try again!";
         feedbackEl.style.color = "red";
         updateScore(-5);
-        clearInterval(timer);
+        setTimeout(fetchPuzzle, 2000);
         resetGame();
     }
 });
