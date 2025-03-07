@@ -140,7 +140,6 @@ function moveMonkey() {
 function resetGame() {
     rockIndex = 0;
     monkey.style.transform = `translateX(0px)`;
-    splash.style.display = "none";
 }
 
 // Fish Animation
