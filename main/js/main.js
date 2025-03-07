@@ -2,22 +2,24 @@ let correctSolution = null;
 let timer;
 let timeLeft = 30;
 let score = 0;
-let bambooIndex = 0;
+let rockIndex = 0;
+
 const timerDisplay = document.getElementById("timer");
 const scoreDisplay = document.getElementById("score");
 const monkey = document.getElementById("monkey");
 const splash = document.getElementById("splash");
-const bambooContainer = document.getElementById("bambooContainer");
+const rockContainer = document.getElementById("rockContainer");
+const fish1 = document.getElementById("fish1");
+const fish2 = document.getElementById("fish2");
 
+const rockPositions = [280, 530, 780, 1030];
 
-const bambooPositions = [100, 250, 400, 550, 700];
-
-bambooPositions.forEach((pos, index) => {
-    const bamboo = document.createElement("img");
-    bamboo.src = "../assets/images/bamboo.png";
-    bamboo.classList.add("bamboo");
-    bamboo.style.left = `${pos}px`;
-    bambooContainer.appendChild(bamboo);
+rockPositions.forEach((pos) => {
+    const rock = document.createElement("img");
+    rock.src = "../assets/images/rock.png";
+    rock.classList.add("rock");
+    rock.style.left = `${pos}px`;
+    rockContainer.appendChild(rock);
 });
 
 function updateScore(points) {
@@ -37,7 +39,7 @@ function startTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timer);
-            timerDisplay.textContent = "Time's up! Moving to next question...";
+            timerDisplay.textContent = "Time's up!";
             updateScore(-5);
             setTimeout(fetchPuzzle, 2000);
         }
@@ -46,7 +48,7 @@ function startTimer() {
 
 function fetchPuzzle() {
     const apiUrl = "https://marcconrad.com/uob/banana/api.php";
-    
+
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -67,7 +69,7 @@ function fetchPuzzle() {
         });
 }
 
-document.getElementById("checkButton").addEventListener("click", function() {
+document.getElementById("checkButton").addEventListener("click", function () {
     const userAnswer = parseInt(document.getElementById("answerInput").value, 10);
     const feedbackEl = document.getElementById("feedback");
 
@@ -78,7 +80,7 @@ document.getElementById("checkButton").addEventListener("click", function() {
     }
 
     if (userAnswer === correctSolution) {
-        feedbackEl.textContent = "Correct! 🎉 Loading next question...";
+        feedbackEl.textContent = "Correct! 🎉";
         feedbackEl.style.color = "green";
         updateScore(10);
         
@@ -93,32 +95,40 @@ document.getElementById("checkButton").addEventListener("click", function() {
     }
 });
 
-document.getElementById("nextButton").addEventListener("click", function() {
+document.getElementById("nextButton").addEventListener("click", function () {
     fetchPuzzle();
 });
 
 function moveMonkey() {
-    if (bambooIndex < bambooPositions.length) {
-        monkey.style.transform = `translateX(${bambooPositions[bambooIndex]}px) translateY(-20px)`;
-        bambooIndex++;
+    if (rockIndex < rockPositions.length) {
+        monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(0px)`;
+        rockIndex++;
     } else {
         alert("You reached the treasure! 🎉");
         resetGame();
     }
 }
 
-
 function fallIntoRiver() {
-    splash.style.left = `${bambooPositions[bambooIndex]}px`;
+    splash.style.left = `${rockPositions[rockIndex]}px`;
     splash.style.bottom = "120px";
     splash.style.display = "block";
     setTimeout(resetGame, 2000);
 }
 
 function resetGame() {
-    bambooIndex = 0;
+    rockIndex = 0;
     monkey.style.transform = `translateX(0px)`;
     splash.style.display = "none";
 }
 
-window.onload = fetchPuzzle;
+// Fish Animation
+function animateFish() {
+    fish1.style.animation = "swimLeftToRight 9s linear infinite";
+    fish2.style.animation = "swimRightToLeft 9s linear infinite";
+}
+
+window.onload = () => {
+    fetchPuzzle();
+    animateFish();
+};

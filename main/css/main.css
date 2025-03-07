@@ -1,17 +1,29 @@
-body {
+/*body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-image: url('../assets/images/Frame.png');
+    background-image: url('');
     background-size: cover;
     background-position: center;
     margin: 0;
     padding: 0;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
+}*/
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: url('../assets/images/Frame5.png') no-repeat center center/cover;
 }
 
-#gameContainer {
+/*#gameContainer {
     max-width: 600px;
     padding: 20px;
     background: rgba(87, 138, 189, 0.312);
@@ -21,37 +33,74 @@ body {
     position: absolute;
     left: 3%;
     bottom: 30%;
+}*/
+
+/* Top Section: Math Puzzle */
+#top-section {
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(128, 217, 174, 0.19);
+    border-bottom: 1px solid #8B5A2B;
+}
+
+/* Bottom Section: Monkey Game */
+#bottom-section {
+    height: 55vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.user_content {
+    position: absolute;
+    top: 20px;
+    right: 80px;
+    background: rgba(40, 39, 39, 0.248);
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.user_content h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(101, 54, 54);
 }
 
 #score {
-    position: absolute;
-    top: 60px;
-    right: 80px;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
     color: rgb(16, 15, 15);
-    background: rgba(0, 0, 0, 0.248);
-    padding: 10px 20px;
-    border-radius: 8px;
+}
+
+.function_part {
+    position: relative;
+    top: 38%;
+    right: 14%;
 }
 
 #timer {
     font-size: 20px;
     font-weight: bold;
     color: #f5c403;
-    margin: 10px;
 }
 
 .puzzle-container {
     position: relative;
     display: flex;
     justify-content: center;
+    left: 8%;
+    bottom: 10%;
 }
 
 #puzzleImage {
     max-width: 430px;
     display: block;
     margin: 20px auto;
+    border-radius: 8px;
 }
 
 .image-overlay {
@@ -79,23 +128,47 @@ body {
     background-color: #facc15;
 }
 
+.feedback_part {
+    position: absolute;
+    right: 20%;
+}
+
 #feedback {
     margin: 15px 0;
+    font-size: 20px;
     font-weight: bold;
 }
 
 #monkey {
     position: absolute;
-    bottom: 178px;
-    left: 500px;
+    bottom: 160px;
+    left: 50px;
     width: 100px;
     transition: transform 0.5s ease-in-out;
 }
 
-.bamboo {
+.rock {
     position: absolute;
-    bottom: 162px;
-    width: 100px;
-    height: 50px;
-    margin-left: 500px;
+    bottom: 55px;
+    width: 220px;
+    height: 150px;
+}
+
+/* Fish Styling */
+#fish1, #fish2 {
+    position: absolute;
+    bottom: 0;
+    width: 80px;
+    height: 80px;
+}
+
+/* Fish Animations */
+@keyframes swimLeftToRight {
+    from { left: -8%; }
+    to { left: 100%; }
+}
+
+@keyframes swimRightToLeft {
+    from { right: -8%; }
+    to { right: 100%; }
 }

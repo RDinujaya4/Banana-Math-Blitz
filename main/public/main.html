@@ -7,26 +7,38 @@
         <link rel="stylesheet" href="../css/main.css">
     </head>
     <body>
-        <div id="gameContainer">
-            <div id="timer">Time Left 30s</div>
+        <div id="top-section">
+            
             
             <div class="puzzle-container">
                 <img id="puzzleImage" src="" alt="Loading puzzle...">
                 <div class="image-overlay"></div>
             </div>
 
-            <div>
+            <div class="function_part">
+                <div id="timer">Time Left 30s</div>
                 <input type="number" id="answerInput" placeholder="Answer">
                 <button class="gameButton" id="checkButton">Check</button>
             </div>
-
-            <div id="feedback"></div>
+            <div class="feedback_part">
+                <div id="feedback"></div>
+            </div>
+            
             <button class="gameButton" id="nextButton" style="display: none;">Next Question</button>
         </div>
-        <div id="bambooContainer"></div>
-        <img id="monkey" src="../assets/images/monkey.png" alt="Monkey">
+        <div id="bottom-section">
+            <div id="rockContainer"></div>
+            <img id="monkey" src="../assets/images/monkey.png" alt="Monkey">
+           <!----img id="splash" src="../assets/images/splash.png" alt="Splash effect" -->
+            <img id="fish1" src="../assets/images/fish1.png" alt="Fish Swimming">
+            <img id="fish2" src="../assets/images/fish2.png" alt="Fish Swimming">
+        </div>
+
+        <div class="user_content">
+            <h1>Hi Rayan</h1>
+            <div id="score">Score: 0</div>
+        </div>
         
-        <div id="score">Score: 0</div>
         
         <script src="../js/main.js"></script>
     </body>
