@@ -14,8 +14,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*background: rgba(128, 217, 174, 0.19);*/
-    /*border-bottom: 1px solid #8B5A2B;*/
 }
 
 #bottom-section {

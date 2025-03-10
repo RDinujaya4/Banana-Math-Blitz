@@ -3,6 +3,7 @@ let timer;
 let timeLeft = 30;
 let score = 0;
 let rockIndex = 0;
+let chances = 3; // Number of chances (hearts)
 
 const timerDisplay = document.getElementById("timer");
 const scoreDisplay = document.getElementById("score");
@@ -10,6 +11,11 @@ const monkey = document.getElementById("monkey");
 const rockContainer = document.getElementById("rockContainer");
 const fish1 = document.getElementById("fish1");
 const fish2 = document.getElementById("fish2");
+
+// Heart images (HTML IDs)
+const heart1 = document.getElementById("heart1");
+const heart2 = document.getElementById("heart2");
+const heart3 = document.getElementById("heart3");
 
 const rockPositions = [260, 510, 760, 1010];
 
@@ -22,7 +28,7 @@ rockPositions.forEach((pos) => {
 });
 
 function updateScore(points) {
-    score = Math.max(0, score + points);
+    score = Math.max(0, score + points); // Ensure score never goes below 0
     scoreDisplay.textContent = `Score: ${score}`;
 }
 
@@ -44,9 +50,9 @@ function startTimer() {
                 alert(`Times up, Game will restart`);
             }, 100);
             
-            updateScore(-5);
-            setTimeout(fetchPuzzle, 2000);
-            resetGame();
+            updateScore(-5);           
+            loseHeart();
+            setTimeout(fetchPuzzle, 2500);
         }
     }, 1000);
 }
@@ -63,7 +69,7 @@ function fetchPuzzle() {
                 document.getElementById("feedback").textContent = "";
                 document.getElementById("answerInput").value = "";
                 document.getElementById("nextButton").style.display = "none";
-                startTimer();
+                startTimer(); // Restart timer for new question
             } else {
                 document.getElementById("feedback").textContent = "Invalid puzzle data received.";
             }
@@ -88,18 +94,38 @@ document.getElementById("checkButton").addEventListener("click", function () {
         feedbackEl.textContent = "Correct! 🎉";
         feedbackEl.style.color = "green";
         updateScore(10);
-       
+
         if (rockIndex === rockPositions.length) {
-            finaljump();
+            // Monkey jumps to treasure after answering the last question
+            setTimeout(() => {
+                monkey.style.transition = "transform 0.8s ease-out";
+                monkey.style.transform = `translateX(${rockPositions[rockIndex - 1] + 170}px) translateY(-120px)`; // Jump up slightly
+
+                setTimeout(() => {
+                    monkey.style.transform = `translateX(1280px) translateY(0px)`; // Land on the treasure position
+                
+                    setTimeout(() => {
+                        let rewardPoints = Math.floor(Math.random() * 91) + 10; // Random points between 10-100
+                        updateScore(rewardPoints);
+                        alert(`You found the treasure! 🎉 You earned ${rewardPoints} points!`);
+                        setTimeout(fetchPuzzle, 1000);
+                        resetGame();
+                    }, 1000);
+                }, 300); // Mid-air delay
+            }, 300);
         } else {
+            // Continue normal jumping process
             setTimeout(fetchPuzzle, 1000);
             moveMonkey();
-            }      
-    } else {    
-            feedbackEl.textContent = "Incorrect. Try again!";
-            feedbackEl.style.color = "red";
-            updateScore(-5);
-            monkeyfall();
+        }      
+    } else {      
+        feedbackEl.textContent = "Incorrect. Try again!";
+        feedbackEl.style.color = "red";
+        updateScore(-5);
+
+        // Decrease chances when the answer is wrong
+        loseHeart();
+        setTimeout(fetchPuzzle, 1300);
     }
 });
 
@@ -122,23 +148,24 @@ function moveMonkey() {
     }
 }
 
-function finaljump(){
-    setTimeout(() => {
-        monkey.style.transition = "transform 0.8s ease-out";
-        monkey.style.transform = `translateX(${rockPositions[rockIndex - 1] + 170}px) translateY(-120px)`; // Jump up slightly
+function resetGame() {
+    rockIndex = 0;
+    monkey.style.transition = "none";
+    monkey.style.transform = `translateX(0px) translateY(0px) rotate(0deg)`;
+    chances = 3; // Reset chances
+    updateHearts(); // Update hearts display
+}
 
-        setTimeout(() => {
-            monkey.style.transform = `translateX(1280px) translateY(0px)`; // Land on the treasure position
-        
-            setTimeout(() => {
-                let rewardPoints = Math.floor(Math.random() * 91) + 10; // Random points between 10-100
-                updateScore(rewardPoints);
-                alert(`You found the treasure! 🎉 You earned ${rewardPoints} points!`);
-                setTimeout(fetchPuzzle, 800);
-                resetGame();
-            }, 1000);
-        }, 300); // Mid-air delay
-    }, 300);
+function updateHearts() {
+    // Hide all hearts
+    heart1.style.display = "none";
+    heart2.style.display = "none";
+    heart3.style.display = "none";
+
+    // Show hearts based on remaining chances
+    if (chances >= 1) heart1.style.display = "inline-block";
+    if (chances >= 2) heart2.style.display = "inline-block";
+    if (chances >= 3) heart3.style.display = "inline-block";
 }
 
 function monkeyfall() {
@@ -168,15 +195,22 @@ function monkeyfall() {
                 resetGame();
             }, 1600); // Delay before fish appears
         
-            setTimeout(fetchPuzzle, 1300);
+            //setTimeout(fetchPuzzle, 1300);
+}
+function loseHeart() {
+    chances--;
+    updateHearts(); // Update hearts after losing one
+    //setTimeout(fetchPuzzle, 500);
+
+    if (chances <= 0) {
+       // alert("Oh no! You've lost all your hearts. The game will restart.");
+        setTimeout(() => {
+        monkeyfall();
+       },100);  
+    }
 }
 
-function resetGame() {
-    rockIndex = 0;
-    monkey.style.transition = "none";
-    monkey.style.transform = `translateX(0px) translateY(0px) rotate(0deg)`;
-}
-
+// Fish Animation
 function animateFish() {
     fish1.style.animation = "swimLeftToRight 9s linear infinite";
     fish2.style.animation = "swimRightToLeft 9s linear infinite";
@@ -184,6 +218,6 @@ function animateFish() {
 
 window.onload = () => {
     fetchPuzzle();
+    updateHearts(); // Initialize heart display
     animateFish();
 };
-
