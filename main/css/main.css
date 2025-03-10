@@ -14,7 +14,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(128, 217, 174, 0.19);
+    /*background: rgba(128, 217, 174, 0.19);*/
     /*border-bottom: 1px solid #8B5A2B;*/
 }
 
@@ -135,13 +135,6 @@ body {
 }
 
 #fish1, #fish2 {
-    position: absolute;
-    bottom: 0;
-    width: 80px;
-    height: 80px;
-}
-
-#fish3, #fish4 {
     position: absolute;
     bottom: 0;
     width: 80px;

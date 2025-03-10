@@ -39,6 +39,11 @@ function startTimer() {
         if (timeLeft <= 0) {
             clearInterval(timer);
             timerDisplay.textContent = "Time's up!";
+            
+            setTimeout(() => {
+                alert(`Times up, Game will restart`);
+            }, 100);
+            
             updateScore(-5);
             setTimeout(fetchPuzzle, 2000);
             resetGame();
@@ -109,13 +114,43 @@ document.getElementById("checkButton").addEventListener("click", function () {
             setTimeout(fetchPuzzle, 1000);
             moveMonkey();
             }      
-    } else {
-        feedbackEl.textContent = "Incorrect. Try again!";
-        feedbackEl.style.color = "red";
-        updateScore(-5);
-        setTimeout(fetchPuzzle, 2000);
-        resetGame();
-    }
+        } else {      
+            feedbackEl.textContent = "Incorrect. Try again!";
+            feedbackEl.style.color = "red";
+            updateScore(-5);
+            
+            let currentX = rockIndex > 0 ? rockPositions[rockIndex - 1] : 0; // Get last rock position
+    
+            monkey.style.transition = "transform 1.5s ease-in";
+            monkey.style.transform = `translateX(${currentX}px) translateY(155px) rotate(360deg)`; // Falls down
+    
+            // Function to show fish hitting monkey at the same position
+            setTimeout(() => {
+                fish1.style.left = `${currentX}px`; // Fish1 appears at monkey's falling position
+                fish1.style.bottom = "0px";
+                fish1.style.display = "block";
+                fish1.style.animation = "fishHit 1.5s ease-in-out";
+            
+                // Calculate fish2's right position dynamically
+                let gameContainerWidth = document.getElementById("bottom-section").offsetWidth; 
+                let fish2Right = gameContainerWidth - (currentX + 210); // Adjust fish2's position from the right
+            
+                fish2.style.right = `${fish2Right}px`; // Corrected position from the right
+                fish2.style.bottom = "0px";
+                fish2.style.display = "block";
+                fish2.style.animation = "fishHit 1.5s ease-in-out";
+            }, 1500);
+            
+                
+            setTimeout(() => {
+                alert("Oh no! The monkey got hit by the fish! 😢 The game will restart.");
+                animateFish();
+                resetGame();
+            }, 1600); // Delay before fish appears
+        
+            setTimeout(fetchPuzzle, 1300);
+             
+        }
 });
 
 document.getElementById("nextButton").addEventListener("click", function () {
@@ -138,8 +173,12 @@ function moveMonkey() {
 }
 
 function resetGame() {
+    //rockIndex = 0;
+    //monkey.style.transform = `translateX(0px)`;
+
     rockIndex = 0;
-    monkey.style.transform = `translateX(0px)`;
+    monkey.style.transition = "none";
+    monkey.style.transform = `translateX(0px) translateY(0px) rotate(0deg)`;
 }
 
 // Fish Animation
