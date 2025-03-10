@@ -29,6 +29,8 @@ body {
 
 .user_content {
     position: absolute;
+    width: 200px;
+    height: 150px;
     top: 20px;
     right: 80px;
     background: rgba(230, 227, 227, 0.793);
@@ -40,6 +42,12 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: rgb(101, 54, 54);
+}
+
+#heart1, #heart2, #heart3 {
+    width: 40px;
+    height: 40px;
+    gap: 20px;
 }
 
 #score {
@@ -102,7 +110,7 @@ body {
 
 .feedback_part {
     position: absolute;
-    right: 20%;
+    right: 25%;
 }
 
 #feedback {
