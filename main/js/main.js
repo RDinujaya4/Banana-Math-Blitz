@@ -3,6 +3,7 @@ let timer;
 let timeLeft = 30;
 let score = 0;
 let rockIndex = 0;
+let chances = 3;
 
 const timerDisplay = document.getElementById("timer");
 const scoreDisplay = document.getElementById("score");
