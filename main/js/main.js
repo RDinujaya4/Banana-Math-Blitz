@@ -49,8 +49,9 @@ function startTimer() {
             
             updateScore(-5);
             setTimeout(fetchPuzzle, 2000);
-            resetGame();
+            loseHeart();
         }
+
     }, 1000);
 }
 
@@ -93,6 +94,7 @@ document.getElementById("checkButton").addEventListener("click", function () {
         updateScore(10);
        
         if (rockIndex === rockPositions.length) {
+            setTimeout(fetchPuzzle,1000);
             finaljump();
         } else {
             setTimeout(fetchPuzzle, 1000);
@@ -102,7 +104,8 @@ document.getElementById("checkButton").addEventListener("click", function () {
             feedbackEl.textContent = "Incorrect. Try again!";
             feedbackEl.style.color = "red";
             updateScore(-5);
-            monkeyfall();
+            setTimeout(fetchPuzzle, 1300);
+            loseHeart();
     }
 });
 
@@ -112,54 +115,53 @@ document.getElementById("nextButton").addEventListener("click", function () {
 
 function moveMonkey() {
     if (rockIndex < rockPositions.length) {
-        monkey.style.transition = "transform 0.7s ease-out"; // Smooth jumping effect
-        monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(-100px)`; // Move up slightly
+        monkey.style.transition = "transform 0.7s ease-out";
+        monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(-100px)`;
 
         setTimeout(() => {
-            monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(0px)`; // Land on the rock
+            monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(0px)`;
 
             setTimeout(() => {
                 rockIndex++;
-            }, 300); // Small delay after landing
-        }, 400); // Time spent in the air
+            }, 300);
+        }, 400);
     }
 }
 
 function finaljump(){
     setTimeout(() => {
         monkey.style.transition = "transform 0.8s ease-out";
-        monkey.style.transform = `translateX(${rockPositions[rockIndex - 1] + 170}px) translateY(-120px)`; // Jump up slightly
+        monkey.style.transform = `translateX(${rockPositions[rockIndex - 1] + 170}px) translateY(-120px)`;
 
         setTimeout(() => {
-            monkey.style.transform = `translateX(1280px) translateY(0px)`; // Land on the treasure position
+            monkey.style.transform = `translateX(1280px) translateY(0px)`;
         
             setTimeout(() => {
-                let rewardPoints = Math.floor(Math.random() * 91) + 10; // Random points between 10-100
+                let rewardPoints = Math.floor(Math.random() * 91) + 10;
                 updateScore(rewardPoints);
                 alert(`You found the treasure! 🎉 You earned ${rewardPoints} points!`);
-                setTimeout(fetchPuzzle, 800);
                 resetGame();
             }, 1000);
-        }, 300); // Mid-air delay
+        }, 300);
     }, 300);
 }
 
 function monkeyfall() {
-    let currentX = rockIndex > 0 ? rockPositions[rockIndex - 1] : 0; // Get last rock position
+    let currentX = rockIndex > 0 ? rockPositions[rockIndex - 1] : 0;
     
             monkey.style.transition = "transform 1.5s ease-in";
-            monkey.style.transform = `translateX(${currentX}px) translateY(155px) rotate(360deg)`; // Falls down
+            monkey.style.transform = `translateX(${currentX}px) translateY(155px) rotate(360deg)`;
               
             setTimeout(() => {
-                fish1.style.left = `${currentX}px`; // Fish1 appears at monkey's falling position
+                fish1.style.left = `${currentX}px`;
                 fish1.style.bottom = "0px";
                 fish1.style.display = "block";
                 fish1.style.animation = "fishHit 1.5s ease-in-out";
             
                 let gameContainerWidth = document.getElementById("bottom-section").offsetWidth; 
-                let fish2Right = gameContainerWidth - (currentX + 210); // Adjust fish2's position from the right
+                let fish2Right = gameContainerWidth - (currentX + 210);
             
-                fish2.style.right = `${fish2Right}px`; // Corrected position from the right
+                fish2.style.right = `${fish2Right}px`;
                 fish2.style.bottom = "0px";
                 fish2.style.display = "block";
                 fish2.style.animation = "fishHit 1.5s ease-in-out";
@@ -169,15 +171,36 @@ function monkeyfall() {
                 alert("Oh no! The monkey got hit by the fish! 😢 The game will restart.");
                 animateFish();
                 resetGame();
-            }, 1600); // Delay before fish appears
-        
-            setTimeout(fetchPuzzle, 1300);
+            }, 1600);
 }
 
 function resetGame() {
     rockIndex = 0;
     monkey.style.transition = "none";
     monkey.style.transform = `translateX(0px) translateY(0px) rotate(0deg)`;
+    chances = 3;
+    updateHearts();
+}
+
+function updateHearts() {
+    heart1.style.display = "none";
+    heart2.style.display = "none";
+    heart3.style.display = "none";
+
+    if (chances >=1) heart1.style.display = "inline-block";
+    if (chances >=2) heart2.style.display = "inline-block";
+    if (chances >=3) heart3.style.display = "inline-block";
+}
+
+function loseHeart() {
+    chances--;
+    updateHearts();
+
+    if (chances <=0) {
+        setTimeout (() => {
+            monkeyfall();
+        },100);
+    }
 }
 
 function animateFish() {
@@ -187,6 +210,7 @@ function animateFish() {
 
 window.onload = () => {
     fetchPuzzle();
+    updateHearts();
     animateFish();
 };
 
