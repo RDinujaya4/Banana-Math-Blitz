@@ -204,7 +204,7 @@ function loseHeart() {
             monkeyfall();
         },100);
     } else {  
-        setTimeout(fetchPuzzle, 300);
+        fetchPuzzle();
     }
 }
 
