@@ -39,18 +39,17 @@ function startTimer() {
         timeLeft--;
         timerDisplay.textContent = `Time Left : ${timeLeft}s`;
 
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            timerDisplay.textContent = "Time's up!";
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                timerDisplay.textContent = "Time's up!";
+                
+                showPopup("Time's up! Game will restart.", function () {
+                    updateScore(-5);
+                    fetchPuzzle();
+                    loseHeart();
+                });
+            }
             
-            setTimeout(() => {
-                alert(`Times up, Game will restart`);
-            }, 100);
-            
-            updateScore(-5);
-            setTimeout(fetchPuzzle, 2000);
-            loseHeart();
-        }
 
     }, 1000);
 }
@@ -201,6 +200,20 @@ function loseHeart() {
             monkeyfall();
         },100);
     }
+}
+
+function showPopup(message, callback) {
+    document.getElementById("popupText").textContent = message;
+    document.getElementById("popupMessage").style.display = "flex";
+    
+    document.getElementById("popupOkButton").onclick = function () {
+        closePopup();
+        if (callback) callback();
+    };
+}
+
+function closePopup() {
+    document.getElementById("popupMessage").style.display = "none";
 }
 
 function animateFish() {
