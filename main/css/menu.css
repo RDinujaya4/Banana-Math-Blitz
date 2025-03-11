@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@600&display=swap');
+body {
+    font-family: 'Paprika', sans-serif;
+}
 
 .full-screen-bg {
     height: 100vh;

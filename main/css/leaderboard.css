@@ -1,3 +1,7 @@
+body{
+    font-family: 'Paprika', sans-serif;
+}
+
 .leaderboard-container {
     background-image: url('../assets/images/Background_6.png');
     background-size: cover;

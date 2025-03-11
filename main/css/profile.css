@@ -1,3 +1,7 @@
+body {
+    font-family: 'Paprika', sans-serif;
+}
+
 .profile-container {
     background-image: url('../assets/images/Background_5.png');
     background-size: cover;
@@ -21,6 +25,8 @@
 }
 
 .username {
+    font-family: 'Paprika', sans-serif;
+    font-weight: bold;
     font-size: 24px;
     font-weight: bold;
     color: #2c3e50;
@@ -31,12 +37,15 @@
 }
 
 .score-container p {
+    font-family: 'Paprika', sans-serif;
     font-size: 16px;
     color: #444;
     font-weight: bold;
+    line-height: 35px;
 }
 
 .leader_btn {
+    font-family: 'Paprika', sans-serif;
     width: 200px;
     background-color: #ffcc00;
     color: black;
@@ -55,6 +64,7 @@
 }
 
 .back-btn {
+    font-family: 'Paprika', sans-serif;
     position: absolute;
     bottom: 168px;
     left: 130px;
