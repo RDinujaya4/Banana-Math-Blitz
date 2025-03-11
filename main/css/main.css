@@ -61,7 +61,7 @@ body {
 .function_part {
     position: relative;
     top: 45%;
-    right: 17.6%;
+    right: 14.6%;
 }
 
 #timer {
@@ -75,7 +75,7 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
-    left: 11%;
+    left: 14%;
     bottom: 7%;
 }
 
@@ -202,7 +202,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.301);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -217,8 +217,8 @@ body {
     width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: 'Paprika', sans-serif;
-    font-size: 20px;
-    color: #222222;
+    font-size: 18px;
+    color: #e30909;
 }
 
 .popup-content button {
