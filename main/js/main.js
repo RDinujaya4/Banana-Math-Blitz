@@ -39,19 +39,20 @@ function startTimer() {
         timeLeft--;
         timerDisplay.textContent = `Time Left : ${timeLeft}s`;
 
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            timerDisplay.textContent = "Time's up!";
-            
-            setTimeout(() => {
-                alert(`Times up, Game will restart`);
-            }, 100);
-            
-            updateScore(-5);
-            setTimeout(fetchPuzzle, 2000);
-            loseHeart();
-        }
-
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                timerDisplay.textContent = "Time's up!";
+                
+                if (chances <= 1) {
+                    updateScore(-5);
+                    loseHeart();
+                } else {
+                    showPopup("Time's up! Game will restart.", function () {
+                        updateScore(-5);
+                        loseHeart();
+                    });
+                }
+            }          
     }, 1000);
 }
 
@@ -94,7 +95,6 @@ document.getElementById("checkButton").addEventListener("click", function () {
         updateScore(10);
        
         if (rockIndex === rockPositions.length) {
-            setTimeout(fetchPuzzle,1000);
             finaljump();
         } else {
             setTimeout(fetchPuzzle, 1000);
@@ -104,7 +104,6 @@ document.getElementById("checkButton").addEventListener("click", function () {
             feedbackEl.textContent = "Incorrect. Try again!";
             feedbackEl.style.color = "red";
             updateScore(-5);
-            setTimeout(fetchPuzzle, 1300);
             loseHeart();
     }
 });
@@ -138,9 +137,11 @@ function finaljump(){
         
             setTimeout(() => {
                 let rewardPoints = Math.floor(Math.random() * 91) + 10;
-                updateScore(rewardPoints);
-                alert(`You found the treasure! 🎉 You earned ${rewardPoints} points!`);
-                resetGame();
+                showPopup(`You found the treasure! 🎉 You earned ${rewardPoints} points!`, function () {
+                    updateScore(rewardPoints);
+                    fetchPuzzle();
+                    resetGame();
+                });             
             }, 1000);
         }, 300);
     }, 300);
@@ -168,9 +169,11 @@ function monkeyfall() {
             }, 1500);
                            
             setTimeout(() => {
-                alert("Oh no! The monkey got hit by the fish! 😢 The game will restart.");
-                animateFish();
-                resetGame();
+                showPopup("Oh no! The monkey got hit by the fish! 😢 The game will restart.", function () {
+                    animateFish();
+                    fetchPuzzle();
+                    resetGame();
+                });
             }, 1600);
 }
 
@@ -195,12 +198,28 @@ function updateHearts() {
 function loseHeart() {
     chances--;
     updateHearts();
-
+    
     if (chances <=0) {
         setTimeout (() => {
             monkeyfall();
         },100);
+    } else {  
+        fetchPuzzle();
     }
+}
+
+function showPopup(message, callback) {
+    document.getElementById("popupText").textContent = message;
+    document.getElementById("popupMessage").style.display = "flex";
+    
+    document.getElementById("popupOkButton").onclick = function () {
+        closePopup();
+        if (callback) callback();
+    };
+}
+
+function closePopup() {
+    document.getElementById("popupMessage").style.display = "none";
 }
 
 function animateFish() {
