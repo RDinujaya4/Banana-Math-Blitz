@@ -63,5 +63,5 @@ th {
 }
 
 .back-btn:hover {
-    background-color: #82643f;
+    transform: scale(1.3);
 }

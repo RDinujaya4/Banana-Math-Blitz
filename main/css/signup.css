@@ -36,7 +36,7 @@ body {
 
 .input-group label {
     font-size: 16px;
-    color: black;
+    color: #4a2900;
     display: block;
     margin-bottom: 3px;
     font-weight: bold;
@@ -44,11 +44,12 @@ body {
 }
 
 .input-group input {
+    font-weight: bold;
     width: 100%;
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     outline: none;
 }
 
@@ -58,20 +59,25 @@ body {
 }
 
 .signup-button {
+    font-size: 18px;
     width: 100%;
-    background: #facc15;
-    color: black;
-    padding: 7.5px;
-    font-size: 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s;
+    height: 45px;
+    padding: 10px 20px;
     font-weight: bold;
+    font-family: 'Paprika', sans-serif;
+    cursor: pointer;
+    border: 3px solid #ffcc00;
+    border-radius: 8px;
+    background-color: #ffcc00;
+    color: #4a2900;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0px #845505;
+    transition: all 0.2s ease-in-out;
 }
 
 .signup-button:hover {
-    background: #eab308;
+    background-color: #ffd633;
+    transform: scale(1.05);
 }
 
 .bot p {

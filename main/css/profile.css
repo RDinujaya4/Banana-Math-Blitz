@@ -14,11 +14,12 @@ body {
 }
 
 .profile-card {
-    background: rgba(255, 255, 255, 0.488);
+    background: rgba(255, 255, 255, 0.721);
     padding: 60px;
+    border: 5px solid #654321;
     border-radius: 12px;
     text-align: center;
-    width: 550px;
+    width: 540px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     margin-left: 30px;
     margin-bottom: 340px;
@@ -45,22 +46,26 @@ body {
 }
 
 .leader_btn {
-    font-family: 'Paprika', sans-serif;
-    width: 200px;
-    background-color: #ffcc00;
-    color: black;
-    border: none;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
+    font-size: 18px;
+    width: 60%;
+    height: 50px;
+    padding: 10px 20px;
+    margin-top: 50px;
     font-weight: bold;
-    transition: background 0.3s ease-in-out;
+    font-family: 'Paprika', sans-serif;
+    cursor: pointer;
+    border: 3px solid #ffcc00;
+    border-radius: 8px;
+    background-color: #ffcc00;
+    color: #4a2900;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0px #c27c00;
+    transition: all 0.2s ease-in-out;
 }
 
 .leader_btn:hover {
-    background-color: #e6b800;
+    background-color: #ffd633;
+    transform: scale(1.05);
 }
 
 .back-btn {
@@ -80,5 +85,5 @@ body {
 }
 
 .back-btn:hover {
-    background-color: #816037;
+    transform: scale(1.3);
 }
