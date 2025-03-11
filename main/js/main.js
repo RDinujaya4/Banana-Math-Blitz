@@ -11,7 +11,9 @@ const monkey = document.getElementById("monkey");
 const rockContainer = document.getElementById("rockContainer");
 const fish1 = document.getElementById("fish1");
 const fish2 = document.getElementById("fish2");
-
+const heart1 = document.getElementById("heart1");
+const heart2 = document.getElementById("heart2");
+const heart3 = document.getElementById("heart3");
 const rockPositions = [260, 510, 760, 1010];
 
 rockPositions.forEach((pos) => {
