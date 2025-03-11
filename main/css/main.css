@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Paprika', sans-serif;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -14,8 +14,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*background: rgba(128, 217, 174, 0.19);*/
-    /*border-bottom: 1px solid #8B5A2B;*/
 }
 
 #bottom-section {
@@ -33,12 +31,15 @@ body {
     height: 150px;
     top: 20px;
     right: 80px;
-    background: rgba(230, 227, 227, 0.793);
-    padding: 10px 20px;
-    border-radius: 8px;
+    background: rgba(230, 227, 227, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    border: 3px solid #654321;
+    box-shadow: 4px 4px 0px #432d1c;
 }
 
 .user_content h1 {
+    font-family: 'Paprika', sans-serif;
     font-size: 20px;
     font-weight: bold;
     color: rgb(101, 54, 54);
@@ -51,6 +52,7 @@ body {
 }
 
 #score {
+    font-family: 'Paprika', sans-serif;
     font-size: 20px;
     font-weight: bold;
     color: rgb(16, 15, 15);
@@ -58,34 +60,37 @@ body {
 
 .function_part {
     position: relative;
-    top: 38%;
-    right: 14%;
+    top: 45%;
+    right: 17.6%;
 }
 
 #timer {
+    font-family: 'Paprika', sans-serif;
     font-size: 20px;
     font-weight: bold;
-    color: #f5c403;
+    color: #2b2206;
 }
 
 .puzzle-container {
     position: relative;
     display: flex;
     justify-content: center;
-    left: 8%;
-    bottom: 10%;
+    left: 11%;
+    bottom: 7%;
 }
 
 #puzzleImage {
     max-width: 430px;
     display: block;
     margin: 20px auto;
-    border-radius: 8px;
+    border-radius: 10px;
+    border: 5px solid #8B4513;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
 .image-overlay {
     position: absolute;
-    top: 20px;
+    top: 30px;
     left: 10px;
     width: 200px;
     height: 30px;
@@ -93,19 +98,45 @@ body {
 }
 
 #answerInput {
-    width: 150px;
+    font-family: 'Paprika', sans-serif;
+    width: 260px;
     font-size: 20px;
-    padding: 5px;
-    background-color: #ffffff;
+    padding: 8px;
+    border: 3px solid #8B4513;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    background-color: #fff8dc;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#answerInput:focus {
+    border-color: #f5a623;
+    background-color: #fff8e1;
+    box-shadow: 0px 0px 12px rgba(245, 166, 35, 0.5);
 }
 
 .gameButton {
-    font-size: 16px;
-    padding: 6px 12px;
+    font-size: 18px;
+    width: 145px;
+    height: 45px;
+    padding: 10px 20px;
     font-weight: bold;
+    font-family: 'Paprika', sans-serif;
     cursor: pointer;
-    margin: 10px;
-    background-color: #facc15;
+    border: 3px solid #ffcc00;
+    border-radius: 8px;
+    background-color: #ffcc00; /* Bright jungle yellow */
+    color: #4a2900;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0px #c27c00;
+    transition: all 0.2s ease-in-out;
+}
+
+.gameButton:hover {
+    background-color: #ffd633;
+    transform: scale(1.05);
 }
 
 .feedback_part {
@@ -114,6 +145,7 @@ body {
 }
 
 #feedback {
+    font-family: 'Bangers', cursive;
     margin: 15px 0;
     font-size: 20px;
     font-weight: bold;
