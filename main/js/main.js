@@ -73,7 +73,7 @@ function startTimer() {
                     updateScore(-5);
                     loseHeart();
                 } else {
-                    showPopup("Time's up! Game will restart.", function () {
+                    showPopup("Time's up! Play again.", function () {
                         updateScore(-5);
                         loseHeart();
                     });
