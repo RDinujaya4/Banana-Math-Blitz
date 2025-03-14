@@ -244,6 +244,28 @@ body {
     background: #ddb115;
 }
 
+#muteButton {
+    font-family: 'Paprika', sans-serif;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 16px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 3px solid #ffcc00;
+    box-shadow: 4px 4px 0px #845505;
+    background-color: #ffcc00;
+    color: black;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+#muteButton:hover {
+    background-color: #ff3131;
+    color: white;
+    box-shadow: 0 0 12px rgba(255, 49, 49, 0.7);
+}
 
 @keyframes swimLeftToRight {
     from { left: -8%; }
@@ -255,22 +277,4 @@ body {
     to { right: 100%; }
 }
 
-#muteButton {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 16px;
-    padding: 8px 12px;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px;
-    background-color: #ffcc00;
-    color: black;
-    font-weight: bold;
-    transition: 0.3s;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-}
 
-#muteButton:hover {
-    background-color: #ff9900;
-}

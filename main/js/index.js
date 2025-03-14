@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
         togggleMusicButton.addEventListener("click", () => {
             if(music.paused){
                 music.play();
-                togggleMusicButton.textContent = "🔊 Mute Music";        
+                togggleMusicButton.textContent = "🔊 Mute";        
             }else {
                 music.pause();
-                togggleMusicButton.textContent = "🔇 Play Music";
+                togggleMusicButton.textContent = "🔇 Unmute";
             }
         });
 });
