@@ -4,6 +4,7 @@ let timeLeft = 30;
 let score = 0;
 let rockIndex = 0;
 let chances = 3;
+let isMuted = false;
 
 const timerDisplay = document.getElementById("timer");
 const scoreDisplay = document.getElementById("score");
@@ -15,6 +16,31 @@ const heart1 = document.getElementById("heart1");
 const heart2 = document.getElementById("heart2");
 const heart3 = document.getElementById("heart3");
 const rockPositions = [260, 510, 760, 1010];
+const jumpSound = document.getElementById("jumpSound");
+const fallSound = document.getElementById("fallSound");
+const treasureSound = document.getElementById("treasureSound");
+const backgroundSound = document.getElementById("background_Sound");
+const muteButton = document.getElementById("muteButton");
+
+muteButton.addEventListener("click", function() {
+    isMuted = !isMuted;
+
+    if (isMuted) {
+        muteButton.textContent = "🔇 Unmute";
+        backgroundSound.pause();
+    } else {
+        muteButton.textContent = "🔊 Mute";
+        backgroundSound.play();
+    }
+});
+
+function playSound(sound) {
+    if (!isMuted && sound) {
+        sound.pause();
+        sound.currentTime = 0;
+        sound.play().catch(e => console.error("Sound play error:", e));
+    }
+}
 
 rockPositions.forEach((pos) => {
     const rock = document.createElement("img");
@@ -116,6 +142,7 @@ function moveMonkey() {
     if (rockIndex < rockPositions.length) {
         monkey.style.transition = "transform 0.7s ease-out";
         monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(-100px)`;
+        playSound(jumpSound);
 
         setTimeout(() => {
             monkey.style.transform = `translateX(${rockPositions[rockIndex]}px) translateY(0px)`;
@@ -131,12 +158,14 @@ function finaljump(){
     setTimeout(() => {
         monkey.style.transition = "transform 0.8s ease-out";
         monkey.style.transform = `translateX(${rockPositions[rockIndex - 1] + 170}px) translateY(-120px)`;
+        playSound(jumpSound);
 
         setTimeout(() => {
             monkey.style.transform = `translateX(1280px) translateY(0px)`;
         
             setTimeout(() => {
                 let rewardPoints = Math.floor(Math.random() * 91) + 10;
+                playSound(treasureSound);
                 showPopup(`You found the treasure! 🎉 You earned ${rewardPoints} points!`, function () {
                     updateScore(rewardPoints);
                     fetchPuzzle();
@@ -152,7 +181,8 @@ function monkeyfall() {
     
             monkey.style.transition = "transform 1.5s ease-in";
             monkey.style.transform = `translateX(${currentX}px) translateY(155px) rotate(360deg)`;
-              
+            playSound(fallSound);
+
             setTimeout(() => {
                 fish1.style.left = `${currentX}px`;
                 fish1.style.bottom = "0px";
@@ -228,6 +258,11 @@ function animateFish() {
 }
 
 window.onload = () => {
+    document.body.addEventListener("click", () => {
+        backgroundSound.loop = true;
+        playSound(backgroundSound);
+    }, { once: true});
+
     fetchPuzzle();
     updateHearts();
     animateFish();
