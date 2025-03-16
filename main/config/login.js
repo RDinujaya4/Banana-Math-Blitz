@@ -1,0 +1,139 @@
+// Login functionality
+// Save this as ../js/login.js
+
+// Get the login form element
+const loginForm = document.getElementById('login-form');
+const errorMessageElement = document.getElementById('error-message');
+
+// Function to display error messages
+function showError(message) {
+  errorMessageElement.textContent = message;
+  errorMessageElement.classList.remove('hidden');
+}
+
+// Function to clear error messages
+function clearError() {
+  errorMessageElement.textContent = '';
+  errorMessageElement.classList.add('hidden');
+}
+
+// Function to get email by username
+async function getEmailByUsername(username) {
+  try {
+    // Query the 'usernames' collection where the document ID is the username
+    const usernameDoc = await db.collection('usernames').doc(username).get();
+    
+    if (usernameDoc.exists) {
+      return usernameDoc.data().email;
+    } else {
+      throw new Error('auth/user-not-found');
+    }
+  } catch (error) {
+    console.error("Error getting email by username:", error);
+    throw error;
+  }
+}
+
+// Function to handle user login
+async function loginUser(username, password) {
+  try {
+    // First, get the email associated with this username
+    const email = await getEmailByUsername(username);
+    
+    // Then use the email to authenticate with Firebase
+    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    return userCredential.user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Add event listener for form submission
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clearError();
+  
+  // Get user input
+  const username = document.getElementById('username').value; // Changed from email to username
+  const password = document.getElementById('password').value;
+  
+  // Create loading state
+  const submitButton = document.querySelector('.login-button');
+  const originalButtonText = submitButton.textContent;
+  submitButton.textContent = 'Logging in...';
+  submitButton.disabled = true;
+  
+  try {
+    const user = await loginUser(username, password);
+    console.log("User logged in successfully:", user.uid);
+    
+    // Get user data from Firestore
+    const userDoc = await db.collection('users').doc(user.uid).get();
+    
+    if (userDoc.exists) {
+      const userData = userDoc.data();
+      console.log("Found user data:", userData);
+      
+      // Here you would typically:
+      // 1. Save user info to localStorage or sessionStorage if needed
+      // 2. Redirect to the appropriate page
+      
+      // For this example, we'll redirect to a game or dashboard page
+      window.location.href = '../public/menu.html';
+    } else {
+      console.warn("User document does not exist in Firestore");
+      // Still redirect since they authenticated successfully
+      window.location.href = '../public/menu.html';
+    }
+    
+  } catch (error) {
+    // Handle errors
+    console.error("Login error:", error);
+    let errorCode, errorMessage;
+    
+    if (error.message === 'auth/user-not-found') {
+      errorCode = 'auth/user-not-found';
+    } else if (error.code) {
+      errorCode = error.code;
+    } else {
+      errorCode = 'unknown';
+    }
+    
+    switch(errorCode) {
+      case 'auth/user-not-found':
+        errorMessage = 'No account found with this username.';
+        break;
+      case 'auth/wrong-password':
+        errorMessage = 'Incorrect password.';
+        break;
+      case 'auth/invalid-email':
+        errorMessage = 'Invalid account information.';
+        break;
+      case 'auth/too-many-requests':
+        errorMessage = 'Too many failed login attempts. Please try again later.';
+        break;
+      default:
+        errorMessage = `Error: ${error.message}`;
+    }
+    
+    showError(errorMessage);
+    
+  } finally {
+    // Reset button state
+    submitButton.textContent = originalButtonText;
+    submitButton.disabled = false;
+  }
+});
+
+// Check if user is already logged in
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in - you could redirect them automatically
+    // Uncomment to enable auto-redirect for signed-in users
+    // window.location.href = '../public/game.html';
+    console.log("User is already signed in:", user.uid);
+  } else {
+    // User is signed out
+    console.log("No user is signed in");
+  }
+});

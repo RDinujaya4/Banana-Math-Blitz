@@ -3,11 +3,36 @@
 
 // Get the signup form element
 const signupForm = document.getElementById('signup-form');
+const errorMessageElement = document.getElementById('error-message');
+
+// Function to display error messages
+function showError(message) {
+  if (errorMessageElement) {
+    errorMessageElement.textContent = message;
+    errorMessageElement.classList.remove('hidden');
+  } else {
+    alert(message); // Fallback to alert if error element doesn't exist
+  }
+}
+
+// Function to clear error messages
+function clearError() {
+  if (errorMessageElement) {
+    errorMessageElement.textContent = '';
+    errorMessageElement.classList.add('hidden');
+  }
+}
 
 // Function to check if username already exists
 async function checkUsernameExists(username) {
   try {
-    // Query Firestore for documents where username matches
+    // First check in the dedicated usernames collection
+    const usernameDoc = await db.collection("usernames").doc(username).get();
+    if (usernameDoc.exists) {
+      return true;
+    }
+    
+    // Also check in users collection as a fallback
     const usernameQuery = await db.collection("users")
       .where("username", "==", username)
       .get();
@@ -24,6 +49,7 @@ async function checkUsernameExists(username) {
 // Add event listener for form submission
 signupForm.addEventListener('submit', async (e) => {
   e.preventDefault();
+  clearError();
   
   // Get user input
   const email = document.getElementById('email').value;
@@ -54,18 +80,27 @@ signupForm.addEventListener('submit', async (e) => {
     
     console.log("User created successfully:", user.uid);
     
-    // Store additional user information in Firestore
+    // Store additional user information in Firestore (users collection)
     await db.collection("users").doc(user.uid).set({
       email: email,
       username: username,
       createdAt: new Date().toISOString()
     });
     
+    // Create entry in usernames collection for login lookup
+    await db.collection("usernames").doc(username).set({
+      email: email,
+      uid: user.uid,
+      createdAt: new Date().toISOString()
+    });
+    
     console.log("User data stored in Firestore");
     
     // Alert success and redirect to login
-    alert('Account created successfully!');
-    window.location.href = '../public/login.html';
+    showError('Account created successfully! Redirecting to login...');
+    setTimeout(() => {
+      window.location.href = '../public/login.html';
+    }, 1500);
     
   } catch (error) {
     // Handle errors
@@ -91,7 +126,7 @@ signupForm.addEventListener('submit', async (e) => {
         errorMessage = `Error: ${error.message}`;
     }
     
-    alert(errorMessage);
+    showError(errorMessage);
     console.error("Error during signup:", error);
     
   } finally {
@@ -103,21 +138,23 @@ signupForm.addEventListener('submit', async (e) => {
 
 // Optional: Add real-time username availability check
 const usernameInput = document.getElementById('username');
-usernameInput.addEventListener('blur', async () => {
-  const username = usernameInput.value.trim();
-  if (username.length > 0) {
-    try {
-      const exists = await checkUsernameExists(username);
-      if (exists) {
-        // You could show a message near the input
-        // or change the input's style to indicate it's taken
-        usernameInput.setCustomValidity('Username already taken');
-        usernameInput.reportValidity();
-      } else {
-        usernameInput.setCustomValidity('');
+if (usernameInput) {
+  usernameInput.addEventListener('blur', async () => {
+    const username = usernameInput.value.trim();
+    if (username.length > 0) {
+      try {
+        const exists = await checkUsernameExists(username);
+        if (exists) {
+          // You could show a message near the input
+          // or change the input's style to indicate it's taken
+          usernameInput.setCustomValidity('Username already taken');
+          usernameInput.reportValidity();
+        } else {
+          usernameInput.setCustomValidity('');
+        }
+      } catch (error) {
+        console.error("Error checking username availability:", error);
       }
-    } catch (error) {
-      console.error("Error checking username availability:", error);
     }
-  }
-});
+  });
+}

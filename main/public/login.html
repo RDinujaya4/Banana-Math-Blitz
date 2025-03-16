@@ -7,28 +7,38 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../css/login.css">
+
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     </head>
     <body>
         <div class="background-image"></div>
-
+        
         <div class="title">
             <h1>Login</h1>
         </div>
-
+        
         <div class="login-container">
-            <form action="#" method="POST">
+            <form id="login-form" action="#" method="POST">
                 <div class="input-group">
-                    <label>Username</label>
-                    <input type="text" required>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
                 </div>
-
+                
                 <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" required>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
-
+                
+                <div id="error-message" class="error-message hidden"></div>
+                
                 <button type="submit" class="login-button">Login</button>
             </form>
+            
         </div>
+
+        <script src="../config/firebase-config.js"></script>       
+        <script src="../config/login.js"></script>
     </body>
 </html>
