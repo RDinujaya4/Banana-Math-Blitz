@@ -85,3 +85,13 @@ body {
     background-color: #ffd633;
     transform: scale(1.05);
 }
+
+.error-message {
+    color: #e53e3e;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .hidden {
+    display: none;
+  }
