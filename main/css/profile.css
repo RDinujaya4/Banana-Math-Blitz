@@ -28,9 +28,9 @@ body {
 .username {
     font-family: 'Paprika', sans-serif;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
-    color: #2c3e50;
+    color: #db0e1c;
 }
 
 .score-container {
@@ -39,33 +39,11 @@ body {
 
 .score-container p {
     font-family: 'Paprika', sans-serif;
-    font-size: 16px;
-    color: #444;
+    font-size: 18px;
+    color: #161515;
     font-weight: bold;
     line-height: 35px;
-}
-
-.leader_btn {
-    font-size: 18px;
-    width: 60%;
-    height: 50px;
-    padding: 10px 20px;
-    margin-top: 10px;
-    font-weight: bold;
-    font-family: 'Paprika', sans-serif;
-    cursor: pointer;
-    border: 3px solid #ffcc00;
-    border-radius: 8px;
-    background-color: #ffcc00;
-    color: #4a2900;
-    text-transform: uppercase;
-    box-shadow: 4px 4px 0px #c27c00;
-    transition: all 0.2s ease-in-out;
-}
-
-.leader_btn:hover {
-    background-color: #ffd633;
-    transform: scale(1.05);
+    justify-content: left;
 }
 
 .back-btn {
