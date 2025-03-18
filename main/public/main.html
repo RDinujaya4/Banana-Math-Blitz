@@ -6,6 +6,11 @@
         <title>Banana Puzzle Game</title>
         <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../css/main.css">
+
+        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
     </head>
     <body>
         <div id="top-section">          
@@ -35,7 +40,7 @@
         </div>
 
         <div class="user_content">
-            <h1>Monkey King</h1>
+            <p>Welcome, <span id="usernameDisplay">Loading...</span>!</p>
             <div id="score">Score: 0</div>
             <br>
             <img id="heart1" src="../assets/images/heart.png" alt="heart">
@@ -58,7 +63,7 @@
         <audio id="treasureSound" src="../assets/sounds/victory.mp3"></audio>
         <audio id="background_Sound" src="../assets/sounds/background_sound.mp3"></audio>
 
-                
-        <script src="../js/main.js"></script>
+        <script src="../config/firebase-config.js"></script>
+        <script src="../js/main1.js"></script>
     </body>
 </html>
