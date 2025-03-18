@@ -1,21 +1,32 @@
-document.addEventListener("DOMContentLoaded", function(){
-    const leaderboardData = [
-        { rank: 1, username: "MonkeyKing", score: 5000 },
-        { rank: 2, username: "BananaMaster", score: 4500 },
-        { rank: 3, username: "JungleWizard", score: 4000 },
-        { rank: 4, username: "MathGenius", score: 3500 },
-        { rank: 5, username: "SpeedSolver", score: 3000 }
-    ];
-
+document.addEventListener("DOMContentLoaded", function () {
     const leaderboardBody = document.getElementById("leaderboard-body");
 
-    leaderboardData.forEach(player => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${player.rank}</td>
-            <td>${player.username}</td>
-            <td>${player.score}</td>
-        `;
-        leaderboardBody.appendChild(row);
-    });
+    if (!firebase.apps.length) {
+        console.error("Firebase not initialized");
+        return;
+    }
+
+    db.collection("users")
+        .orderBy("totalScore", "desc")
+        .limit(10)
+        .get()
+        .then((querySnapshot) => {
+            let rank = 1;
+            querySnapshot.forEach((doc) => {
+                const userData = doc.data();
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${rank}</td>
+                    <td>${userData.username || "Unknown Player"}</td>
+                    <td>${userData.totalScore || 0}</td>
+                `;
+
+                leaderboardBody.appendChild(row);
+                rank++;
+            });
+        })
+        .catch((error) => {
+            console.error("Error fetching leaderboard data:", error);
+        });
 });

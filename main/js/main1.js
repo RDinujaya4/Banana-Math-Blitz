@@ -28,19 +28,17 @@ function saveScoreAndExit() {
     if (!user) {
         console.error("No authenticated user found");
         alert("You must be logged in to save scores");
-        window.location.href = '../public/login.html'; // Redirect to login if not authenticated
+        window.location.href = '../public/login.html';
         return;
     }
     
     const userId = user.uid;
     const db = firebase.firestore();
     
-    // Show a loading message
     showPopup("Saving your score...");
 
     const userRef = db.collection("users").doc(userId);
 
-    // Get the current user document to check if it exists
     userRef.get()
         .then((docSnap) => {
             if (docSnap.exists) {
@@ -48,19 +46,17 @@ function saveScoreAndExit() {
                 const currentTotal = userData.totalScore || 0;
                 const gamesPlayed = userData.gamesPlayed || 0;
                 const highScore = userData.highScore || 0;
-                const username = userData.username || "Player"; // Fetch username from Firestore
+                const username = userData.username || "Player";
 
-                // Update user stats
                 return userRef.update({
                     totalScore: currentTotal + score,
                     gamesPlayed: gamesPlayed + 1,
                     highScore: score > highScore ? score : highScore,
                     lastPlayed: new Date()
-                }).then(() => username); // Return username for the next step
+                }).then(() => username);
 
             } else {
-                // If user doesn't exist, create a new profile
-                const username = user.displayName || "Player"; // Use Auth displayName as fallback
+                const username = user.displayName || "Player";
 
                 return userRef.set({
                     userId: userId,
@@ -70,14 +66,13 @@ function saveScoreAndExit() {
                     highScore: score,
                     createdAt: new Date(),
                     lastPlayed: new Date()
-                }).then(() => username); // Return username for the next step
+                }).then(() => username);
             }
         })
         .then((username) => {
-            // Save individual game score using the fetched username
             return db.collection("scores").add({
                 userId: userId,
-                username: username, // Use fetched username
+                username: username,
                 score: score,
                 timestamp: new Date(),
                 gameVersion: "1.0"
@@ -85,7 +80,7 @@ function saveScoreAndExit() {
         })
         .then(() => {
             console.log("Score saved successfully");
-            window.location.href = '../public/menu.html'; // Redirect to menu page
+            window.location.href = '../public/menu.html';
         })
         .catch((error) => {
             console.error("Error saving score:", error);
@@ -93,20 +88,16 @@ function saveScoreAndExit() {
         });
 }
 
-
-// Monitor authentication state
-// Ensure Firebase is initialized before this script runs
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         console.log("User is signed in:", user.uid);
-        const userId = user.uid; // Get the logged-in user's UID
+        const userId = user.uid;
         const db = firebase.firestore();
 
-        // Reference the user document in Firestore
         db.collection("users").doc(userId).get()
             .then((doc) => {
                 if (doc.exists) {
-                    const username = doc.data().username; // Get username from Firestore
+                    const username = doc.data().username;
                     document.getElementById("usernameDisplay").textContent = username;
                 } else {
                     console.error("User document not found!");
@@ -123,7 +114,6 @@ firebase.auth().onAuthStateChanged((user) => {
     }
 });
 
-// Connect the exit button to our function
 document.getElementById("save_exit").addEventListener("click", saveScoreAndExit);
 
 muteButton.addEventListener("click", function() {
@@ -371,10 +361,8 @@ window.onload = () => {
     updateHearts();
     animateFish();
 
-    // Check if we have a logged in user
     const user = firebase.auth().currentUser;
     if (!user) {
-        // If needed, you can handle the non-authenticated case here
         console.log("No user is signed in during game load");
     }
 };

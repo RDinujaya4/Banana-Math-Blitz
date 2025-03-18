@@ -6,7 +6,11 @@
         <title>Leaderboard</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/leaderboard.css"> 
+        <link rel="stylesheet" href="../css/leaderboard.css">
+        <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+
     </head>
     <body>
         <div class="leaderboard-container">
@@ -27,6 +31,7 @@
             </div>
             <button class="back-btn" onclick="window.location.href='menu.html'"> Back</button>
         </div>
+        <script src="../config/firebase-config.js"></script>
         <script src="../js/leaderboard.js"></script>
     </body>
 </html>
