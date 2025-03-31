@@ -41,3 +41,28 @@ body {
     background: #f6c121d2;
     transform: scale(1.1);
 }
+
+.logout-btn {
+    font-size: 19px;
+    font-weight: bold;
+    width: 250px;
+    height: 50px;
+    font-family: 'Paprika', sans-serif;
+    cursor: pointer;
+    border: 3px solid #ffcc0000;
+    border-radius: 8px;
+    background-color: #f6c121;
+    color: #4a2900;
+    box-shadow: 4px 4px 0px #181000;
+    transition: all 0.2s ease-in-out;
+    padding: 10px 20px;
+    position: absolute;
+    bottom: 4%;
+    right: 41%;
+    text-transform: uppercase;
+}
+
+.logout-btn:hover {
+    background: #f38c07fc;
+    transform: scale(1.1);
+}

@@ -7,6 +7,9 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../css/menu.css">
+        <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
     </head>
     <body class="full-screen-bg">
         <div class="menu-buttons">
@@ -14,5 +17,11 @@
             <button class="menu-btn" onclick="window.location.href='profile.html'">Profile</button>
             <button class="menu-btn" onclick="window.location.href='leaderboard.html'">Leaderboard</button>
         </div> 
+        <div class="log_btn">
+            <button class="logout-btn">Logout</button>
+        </div>
+
+        <script src="../config/firebase-config.js"></script>
+        <script src="../js/menu.js"></script>
     </body>
 </html>

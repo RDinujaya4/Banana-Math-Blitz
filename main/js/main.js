@@ -22,6 +22,100 @@ const treasureSound = document.getElementById("treasureSound");
 const backgroundSound = document.getElementById("background_Sound");
 const muteButton = document.getElementById("muteButton");
 
+function saveScoreAndExit() {
+    const user = firebase.auth().currentUser;
+    
+    if (!user) {
+        console.error("No authenticated user found");
+        alert("You must be logged in to save scores");
+        window.location.href = '../public/login.html';
+        return;
+    }
+    
+    const userId = user.uid;
+    const db = firebase.firestore();
+    
+    showPopup("Saving your score...");
+
+    const userRef = db.collection("users").doc(userId);
+
+    userRef.get()
+        .then((docSnap) => {
+            if (docSnap.exists) {
+                const userData = docSnap.data();
+                const currentTotal = userData.totalScore || 0;
+                const gamesPlayed = userData.gamesPlayed || 0;
+                const highScore = userData.highScore || 0;
+                const username = userData.username || "Player";
+
+                return userRef.update({
+                    totalScore: currentTotal + score,
+                    gamesPlayed: gamesPlayed + 1,
+                    highScore: score > highScore ? score : highScore,
+                    lastPlayed: new Date()
+                }).then(() => username);
+
+            } else {
+                const username = user.displayName || "Player";
+
+                return userRef.set({
+                    userId: userId,
+                    username: username,
+                    totalScore: score,
+                    gamesPlayed: 1,
+                    highScore: score,
+                    createdAt: new Date(),
+                    lastPlayed: new Date()
+                }).then(() => username);
+            }
+        })
+        .then((username) => {
+            return db.collection("scores").add({
+                userId: userId,
+                username: username,
+                score: score,
+                timestamp: new Date(),
+                gameVersion: "1.0"
+            });
+        })
+        .then(() => {
+            console.log("Score saved successfully");
+            window.location.href = '../public/menu.html';
+        })
+        .catch((error) => {
+            console.error("Error saving score:", error);
+            showPopup("Failed to save your score. Please try again.");
+        });
+}
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        console.log("User is signed in:", user.uid);
+        const userId = user.uid;
+        const db = firebase.firestore();
+
+        db.collection("users").doc(userId).get()
+            .then((doc) => {
+                if (doc.exists) {
+                    const username = doc.data().username;
+                    document.getElementById("usernameDisplay").textContent = username;
+                } else {
+                    console.error("User document not found!");
+                    document.getElementById("usernameDisplay").textContent = "Unknown Player";
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching user data:", error);
+                document.getElementById("usernameDisplay").textContent = "Error loading username";
+            });
+    } else {
+        console.log("No user is signed in");
+        document.getElementById("usernameDisplay").textContent = "Guest";
+    }
+});
+
+document.getElementById("save_exit").addEventListener("click", saveScoreAndExit);
+
 muteButton.addEventListener("click", function() {
     isMuted = !isMuted;
 
@@ -266,5 +360,9 @@ window.onload = () => {
     fetchPuzzle();
     updateHearts();
     animateFish();
-};
 
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        console.log("No user is signed in during game load");
+    }
+};
