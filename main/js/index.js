@@ -1,20 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
     const music = document.getElementById("background-music");
-    const togggleMusicButton = document.getElementById("toggle-music");
+    const toggleMusicButton = document.getElementById("toggle-music");
 
-    function playMusic(){
-        music.play().catch(error => console.log("Autoplay blocked. Waiting for user interaction."));
+    function setCookie(name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const [key, value] = cookies[i].split("=");
+            if (key === name) return value;
         }
+        return null;
+    }
 
-        document.body.addEventListener("click", playMusic, {once: true});
+    function playMusic() {
+        music.play().catch(error => console.log("Autoplay blocked. Waiting for user interaction."));
+    }
 
-        togggleMusicButton.addEventListener("click", () => {
-            if(music.paused){
-                music.play();
-                togggleMusicButton.textContent = "🔊 Mute";        
-            }else {
-                music.pause();
-                togggleMusicButton.textContent = "🔇 Unmute";
-            }
-        });
+    const savedPreference = getCookie("musicMuted");
+    if (savedPreference === "true") {
+        music.muted = true;
+        toggleMusicButton.textContent = "🔇 Unmute";
+    } else {
+        music.muted = false;
+        toggleMusicButton.textContent = "🔊 Mute";
+    }
+
+    document.body.addEventListener("click", playMusic, { once: true });
+
+    toggleMusicButton.addEventListener("click", () => {
+        if (music.muted) {
+            music.muted = false;
+            toggleMusicButton.textContent = "🔊 Mute";
+            setCookie("musicMuted", "false", 7);
+        } else {
+            music.muted = true;
+            toggleMusicButton.textContent = "🔇 Unmute";
+            setCookie("musicMuted", "true", 7);
+        }
+    });
 });
