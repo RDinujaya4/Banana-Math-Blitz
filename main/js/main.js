@@ -119,7 +119,6 @@ document.getElementById("save_exit").addEventListener("click", saveScoreAndExit)
 muteButton.addEventListener("click", function() {
     isMuted = !isMuted;
 
-    // Save mute preference to a cookie (expires in 30 days)
     document.cookie = `mute=${isMuted}; path=/; max-age=${30 * 24 * 60 * 60}`;
 
     if (isMuted) {
@@ -364,14 +363,12 @@ window.onload = () => {
     updateHearts();
     animateFish();
 
-    // Load mute preference from cookies
     const cookies = document.cookie.split("; ");
     const muteCookie = cookies.find(row => row.startsWith("mute="));
     if (muteCookie) {
         isMuted = muteCookie.split("=")[1] === "true"; // Convert string to boolean
     }
 
-    // Apply mute setting
     if (isMuted) {
         muteButton.textContent = "🔇 Unmute";
         backgroundSound.pause();
