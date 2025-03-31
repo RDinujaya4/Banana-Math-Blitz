@@ -135,3 +135,42 @@ if (usernameInput) {
     }
   });
 }
+
+//Google Login Function
+const googleSignInBtn = document.getElementById('google-signin-btn');
+
+googleSignInBtn.addEventListener('click', async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        
+        if (!user) return;
+        
+        const userRef = db.collection("users").doc(user.uid);
+        const doc = await userRef.get();
+
+        if (!doc.exists) {
+            await userRef.set({
+                email: user.email,
+                username: user.displayName || "Player_" + Math.floor(Math.random() * 1000),
+                createdAt: new Date().toISOString(),
+                lastPlayed: new Date()
+            });
+        } else {
+            await userRef.update({
+                lastPlayed: new Date()
+            });
+        }
+
+        alert("Login successful! Redirecting to menu...");
+        setTimeout(() => {
+            window.location.href = '../public/menu.html';
+        }, 1000);
+
+    } catch (error) {
+        console.error("Google Sign-In error:", error);
+        alert(error.message);
+    }
+});
