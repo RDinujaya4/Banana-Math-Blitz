@@ -366,7 +366,7 @@ window.onload = () => {
     const cookies = document.cookie.split("; ");
     const muteCookie = cookies.find(row => row.startsWith("mute="));
     if (muteCookie) {
-        isMuted = muteCookie.split("=")[1] === "true"; // Convert string to boolean
+        isMuted = muteCookie.split("=")[1] === "true";
     }
 
     if (isMuted) {
