@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     logoutButton.addEventListener("click", function () {
+        logoutButton.textContent = "Logging out...";
+        logoutButton.disabled = true;
+
         auth.signOut()
             .then(() => {
                 console.log("User logged out successfully");
@@ -20,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => {
                 console.error("Logout Error:", error);
+                alert("Logout failed. please try again.");
+                logoutButton.textContent = "Logout";
+                logoutButton.disabled = false;
             });
     });
 });
