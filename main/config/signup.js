@@ -36,6 +36,22 @@ async function checkUsernameExists(username) {
   }
 }
 
+function isStrongPassword(password) {
+  const minLength = 8;
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+  return (
+    password.length >= minLength &&
+    hasUpperCase &&
+    hasLowerCase &&
+    hasNumber &&
+    hasSpecialChar
+  );
+}
+
 signupForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   clearError();
@@ -43,6 +59,11 @@ signupForm.addEventListener('submit', async (e) => {
   const email = document.getElementById('email').value;
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
+
+  if (!isStrongPassword(password)) {
+    showError('Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.');
+    return;
+  }
 
   const submitButton = document.querySelector('.signup-button');
   const originalButtonText = submitButton.textContent;
@@ -98,7 +119,7 @@ signupForm.addEventListener('submit', async (e) => {
         errorMessage = 'Please enter a valid email address.';
         break;
       case 'auth/weak-password':
-        errorMessage = 'Password should be at least 6 characters long.';
+        errorMessage = 'Password should be at least 8 characters long with an uppercase letter, lowercase letter, number, and special character.';
         break;
       case 'auth/username-already-in-use':
         errorMessage = 'This username is already taken. Please choose another username.';
