@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         auth.signOut()
             .then(() => {
                 console.log("User logged out successfully");
+                localStorage.clear();
                 window.location.href = "login.html";
             })
             .catch(error => {
