@@ -80,6 +80,9 @@ function saveScoreAndExit() {
         })
         .then(() => {
             console.log("Score saved successfully");
+
+            localStorage.removeItem("currentScore");
+
             window.location.href = '../public/menu.html';
         })
         .catch((error) => {
@@ -146,9 +149,30 @@ rockPositions.forEach((pos) => {
     rockContainer.appendChild(rock);
 });
 
+//Add local Storage for a session
 function updateScore(points) {
     score = Math.max(0, score + points);
     scoreDisplay.textContent = `Score: ${score}`;
+
+    localStorage.setItem("currentScore", score);
+}
+
+function loadScore() {
+    const savedScore = localStorage.getItem("currentScore");
+    if (savedScore !== null) {
+        score = parseInt(savedScore, 10);
+        scoreDisplay.textContent = `Score: ${score}`;
+    } else {
+        score = 0;
+    }
+}
+
+loadScore();
+
+function resetScore() {
+    score = 0;
+    scoreDisplay.textContent = `Score: ${score}`;
+    localStorage.removeItem("currentScore");
 }
 
 function startTimer() {
@@ -179,6 +203,7 @@ function startTimer() {
                     popupTimeout = setTimeout(() => {
                         localStorage.setItem("logoutAlert", "true");
                         auth.signOut().then(() => {
+                            localStorage.removeItem("currentScore");
                             window.location.href = "../public/login.html";
                         });
                     },15000);
