@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function () {
+  if (localStorage.getItem("logoutAlert") === "true") {
+      localStorage.removeItem("logoutAlert");
+      setTimeout(() => {
+          alert("You have been logged out due to inactivity! So your game play was not saved.");
+      }, 500);
+  }
+});
+
+
 const loginForm = document.getElementById('login-form');
 const errorMessageElement = document.getElementById('error-message');
 

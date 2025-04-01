@@ -169,10 +169,19 @@ function startTimer() {
                     updateScore(-5);
                     loseHeart();
                 } else {
+                    let popupTimeout;
                     showPopup("Time's up! Play again.", function () {
+                        clearTimeout(popupTimeout);
                         updateScore(-5);
                         loseHeart();
                     });
+
+                    popupTimeout = setTimeout(() => {
+                        localStorage.setItem("logoutAlert", "true");
+                        auth.signOut().then(() => {
+                            window.location.href = "../public/login.html";
+                        });
+                    },15000);
                 }
             }          
     }, 1000);
