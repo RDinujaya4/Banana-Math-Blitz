@@ -103,6 +103,12 @@ body {
     font-size: 13px;
     font-weight: bold;
 }
+.bot p1 {
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
 
 .bot a {
     color: #007bff;

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Forget-Password - Banana Math Blitz</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/forgetpw.css">
+
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    </head>
+    <body>
+        <div class="background-image"></div>
+        
+        <div class="title">
+            <h1>Password Change</h1>
+        </div>
+        
+        <div class="forget-container">
+            <form id="forget-form" action="#" method="POST">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" required>
+                </div>             
+                <div id="error-message" class="error-message hidden"></div>
+                <button type="submit" class="forget-button">Submit</button>
+            </form>
+            <button class="back-btn" onclick="window.location.href='index.html'"> Back</button>
+        </div>
+
+        <script src="../config/firebase-config.js"></script>       
+        <script src="../js/forgetpw.js"></script>
+    </body>
+</html>
