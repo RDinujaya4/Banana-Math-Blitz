@@ -1,10 +1,10 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyDbhdF_1-tcnKIdeErme4C-iOFY1-JQ7iA",
-    authDomain: "banana-math-blitz-a0baa.firebaseapp.com",
-    projectId: "banana-math-blitz-a0baa",
-    storageBucket: "banana-math-blitz-a0baa.firebasestorage.app",
-    messagingSenderId: "142589278674",
-    appId: "1:142589278674:web:5dbd9453aef198455ff00b"
+    apiKey: "AIzaSyD_AGmjG18HGe8IwY5BlN1qIiLupjiLvP0",
+    authDomain: "banana-math-blitz1.firebaseapp.com",
+    projectId: "banana-math-blitz1",
+    storageBucket: "banana-math-blitz1.firebasestorage.app",
+    messagingSenderId: "917173752405",
+    appId: "1:917173752405:web:e59dabdac78ea1f6eafadc"
   };
   
   firebase.initializeApp(firebaseConfig);
