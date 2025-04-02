@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const music = document.getElementById("background-music");
     const toggleMusicButton = document.getElementById("toggle-music");
 
+//Get from: https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
     function setCookie(name, value, days) {
         const expires = new Date();
         expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         music.muted = false;
         toggleMusicButton.textContent = "🔊 Mute";
     }
-
+//https://stackoverflow.com/questions/6529645/how-to-add-background-music-to-a-web-page
     document.body.addEventListener("click", playMusic, { once: true });
 
     toggleMusicButton.addEventListener("click", () => {

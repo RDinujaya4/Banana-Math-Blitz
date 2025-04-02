@@ -1,3 +1,4 @@
+//Inspired by: https://www.youtube.com/watch?v=XpMnUNWMyQI&ab_channel=VectorM%3A
 document.addEventListener("DOMContentLoaded", function () {
     const auth = firebase.auth();
     const forgetForm = document.getElementById("forget-form");

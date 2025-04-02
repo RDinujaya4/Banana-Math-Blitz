@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const auth = firebase.auth();
     const logoutButton = document.querySelector(".logout-btn");
 
+//Get code idea from: https://dev.to/maasak/sign-up-login-logout-users-with-firebase-authentication-3oa9
     auth.onAuthStateChanged(user => {
         if (user) {
             console.log("User is signed in:", user.email);
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     });
-
+//Reference from: https://dev.to/maasak/sign-up-login-logout-users-with-firebase-authentication-3oa9
     logoutButton.addEventListener("click", function () {
         logoutButton.textContent = "Logging out...";
         logoutButton.disabled = true;
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//Code get from: https://dev.to/gyantocode/how-to-track-user-inactivity-on-your-website-and-why-it-matters-2b7h
 let inactivityTimer;
 
 function resetInactivityTimer() {

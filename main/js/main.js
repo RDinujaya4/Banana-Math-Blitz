@@ -119,6 +119,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
 document.getElementById("save_exit").addEventListener("click", saveScoreAndExit);
 
+////https://stackoverflow.com/questions/6529645/how-to-add-background-music-to-a-web-page
 muteButton.addEventListener("click", function() {
     isMuted = !isMuted;
 
@@ -149,7 +150,7 @@ rockPositions.forEach((pos) => {
     rockContainer.appendChild(rock);
 });
 
-//Add local Storage for a session
+//Add local Storage for a session: https://www.w3schools.com/jsref/prop_win_localstorage.asp
 function updateScore(points) {
     score = Math.max(0, score + points);
     scoreDisplay.textContent = `Score: ${score}`;
@@ -212,6 +213,7 @@ function startTimer() {
     }, 1000);
 }
 
+//Reference from: https://www.youtube.com/watch?v=37vxWr0WgQk&ab_channel=BroCode
 function fetchPuzzle() {
     const apiUrl = "https://marcconrad.com/uob/banana/api.php";
 
@@ -397,6 +399,7 @@ window.onload = () => {
     updateHearts();
     animateFish();
 
+//https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
     const cookies = document.cookie.split("; ");
     const muteCookie = cookies.find(row => row.startsWith("mute="));
     if (muteCookie) {

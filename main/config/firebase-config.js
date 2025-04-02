@@ -1,3 +1,4 @@
+//Get Config code from Firbase project settings
 const firebaseConfig = {
     apiKey: "AIzaSyD_AGmjG18HGe8IwY5BlN1qIiLupjiLvP0",
     authDomain: "banana-math-blitz1.firebaseapp.com",

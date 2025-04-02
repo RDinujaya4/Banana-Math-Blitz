@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const auth = firebase.auth();
     const db = firebase.firestore();
-
+//Get idea from: https://www.youtube.com/watch?v=kjyMta25TMI&ab_channel=VectorM%3A
     const usernameElement = document.querySelector(".username");
     const emailElement = document.querySelector(".score-container p:nth-child(1) span");
     const gamesPlayedElement = document.querySelector(".score-container p:nth-child(2) span");

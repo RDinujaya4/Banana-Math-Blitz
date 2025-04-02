@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Firebase not initialized");
         return;
     }
-
+//Get idea from: https://medium.com/@tajammalmaqbool11/creating-a-leaderboard-for-your-website-game-using-firebase-and-javascript-7083882b409e
     db.collection("users")
         .orderBy("totalScore", "desc")
         .limit(10)

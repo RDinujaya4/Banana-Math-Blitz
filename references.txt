@@ -1,0 +1,27 @@
+References
+
+1.Images
+* https://www.freepik.com/
+* https://www.remove.bg/
+* https://www.figma.com/
+
+2.Sounds
+* https://mixkit.co/
+* https://opengameart.org/
+
+3.Firebase Authentication & Database
+* Google Sign-In with Firebase - https://firebase.google.com/docs/auth/web/google-signin , https://www.youtube.com/watch?v=Uhbn1KmiNbg&ab_channel=VectorM%3A
+* Email & Password Authentication - https://firebase.google.com/docs/auth/web/password-auth , https://www.youtube.com/watch?v=WM178YopjfI&ab_channel=VectorM%3A
+* Firestore Database Setup - https://firebase.google.com/docs/firestore/quickstart
+* Connecting Firebase to Web App - https://firebase.google.com/docs/web/setup
+* Firebase Forget password option - https://www.youtube.com/watch?v=XpMnUNWMyQI&ab_channel=VectorM%3A
+
+4.Java script files References
+* forgetpw.js - https://www.youtube.com/watch?v=XpMnUNWMyQI&ab_channel=VectorM%3A
+* profile.js - https://www.youtube.com/watch?v=kjyMta25TMI&ab_channel=VectorM%3A
+* leaderboard.js - https://medium.com/@tajammalmaqbool11/creating-a-leaderboard-for-your-website-game-using-firebase-and-javascript-7083882b409e
+* menu.js - https://dev.to/maasak/sign-up-login-logout-users-with-firebase-authentication-3oa9
+* index.js - https://stackoverflow.com/questions/6529645/how-to-add-background-music-to-a-web-page , https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
+* main.js - https://www.w3schools.com/jsref/prop_win_localstorage.asp , https://www.youtube.com/watch?v=37vxWr0WgQk&ab_channel=BroCode
+
+

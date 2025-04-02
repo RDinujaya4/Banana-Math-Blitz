@@ -114,6 +114,7 @@ loginForm.addEventListener('submit', async (e) => {
   }
 });
 
+//Get code idea from: https://dev.to/maasak/sign-up-login-logout-users-with-firebase-authentication-3oa9
 auth.onAuthStateChanged((user) => {
   if (user) {
     console.log("User is already signed in:", user.uid);

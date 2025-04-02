@@ -52,6 +52,7 @@ function isStrongPassword(password) {
   );
 }
 
+//Get idea from: https://www.youtube.com/watch?v=WM178YopjfI&ab_channel=VectorM%3A
 signupForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   clearError();
@@ -157,7 +158,7 @@ if (usernameInput) {
   });
 }
 
-//Google Login Function
+//Google Login Function: https://www.youtube.com/watch?v=Uhbn1KmiNbg&ab_channel=VectorM%3A
 const googleSignInBtn = document.getElementById('google-signin-btn');
 
 googleSignInBtn.addEventListener('click', async () => {
