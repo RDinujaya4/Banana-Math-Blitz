@@ -12,7 +12,7 @@ Banana Math Blitz is an educational web-based game where players solve math puzz
 *If you download the source code open index.html with your live server located in root folder.
 *If you want to just try the game open the link below.
 *Download Source code here https://github.com/RDinujaya4/Banana-Math-Blitz
-*Try the game here 
+*Try the game here https://rdinujaya4.github.io/Banana-Math-Blitz/main/public/index.html
 
 # How to play the game
 *Fisrt user need to register using email, username and password or using google signup option.
