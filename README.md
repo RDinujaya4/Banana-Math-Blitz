@@ -23,3 +23,6 @@ Banana Math Blitz is an educational web-based game where players solve math puzz
 *Player has 3 chances to play game. If answer is wrong 1 chance deduct if all chances loss by player monkey fall in to water and game over.
 *To save progress and exit the game user need to click the exit button in game page and to logout user need to click logout button in meny page.
 *Enjoy Banana-Math-Blitz game.
+
+# References
+* Check references.txt file and inline code comments.
