@@ -24,4 +24,5 @@ References
 * index.js - https://stackoverflow.com/questions/6529645/how-to-add-background-music-to-a-web-page , https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
 * main.js - https://www.w3schools.com/jsref/prop_win_localstorage.asp , https://www.youtube.com/watch?v=37vxWr0WgQk&ab_channel=BroCode
 
+* Also used Chatgpt for generate code parts - https://chatgpt.com/
 

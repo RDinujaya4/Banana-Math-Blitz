@@ -22,6 +22,7 @@ const treasureSound = document.getElementById("treasureSound");
 const backgroundSound = document.getElementById("background_Sound");
 const muteButton = document.getElementById("muteButton");
 
+//This saveScoreAndExit function generate from Chatgpt: https://chatgpt.com/
 function saveScoreAndExit() {
     const user = firebase.auth().currentUser;
     
@@ -91,6 +92,8 @@ function saveScoreAndExit() {
         });
 }
 
+
+//Get code idea from: https://dev.to/maasak/sign-up-login-logout-users-with-firebase-authentication-3oa9
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         console.log("User is signed in:", user.uid);
@@ -237,6 +240,7 @@ function fetchPuzzle() {
         });
 }
 
+// Check answer function generate from Chatgpt: https://chatgpt.com/
 document.getElementById("checkButton").addEventListener("click", function () {
     const userAnswer = parseInt(document.getElementById("answerInput").value, 10);
     const feedbackEl = document.getElementById("feedback");
@@ -370,6 +374,7 @@ function loseHeart() {
     }
 }
 
+//This POPUP message genrated by Chatgpt: https://chatgpt.com/
 function showPopup(message, callback) {
     document.getElementById("popupText").textContent = message;
     document.getElementById("popupMessage").style.display = "flex";
